@@ -1,0 +1,18 @@
+galaxy_info:
+  role_name: 'openmediavault_lets_encrypt_certificate'
+  author: 'Johannes Kastl'
+  description: 'Hook script to import a Lets Encrypt certificate into Openmediavault'
+  company: 'B1 Systems GmbH'
+
+  license: 'BSD-3-Clause'
+
+  min_ansible_version: 2.4
+
+  platforms:
+  - name: Debian
+    versions:
+    - 11
+
+  galaxy_tags: []
+
+dependencies: []
