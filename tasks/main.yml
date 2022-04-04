@@ -1,0 +1,15 @@
+---
+# openmediavault_lets_encrypt_certificate/tasks/main.yml
+
+- name: 'install the jq utility'
+  package:
+    name: 'jq'
+    state: 'present'
+
+- name: 'Create the hook script'
+  template:
+    src: 'le_certificate_update.sh.j2'
+    dest: "{{ path_to_install_to }}/le_certificate_update.sh"
+    owner: 'root'
+    group: 'root'
+    mode: '0755'
