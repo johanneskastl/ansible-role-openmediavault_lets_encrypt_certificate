@@ -1,7 +1,9 @@
 openmediavault_lets_encrypt_certificate
 =========
 
-Hook script to import a Let's Encrypt certificate into Openmediavault
+Hook script to import a Let's Encrypt certificate into Openmediavault.
+
+Based loosely on a [nice blog post by Adrian Pavelescu](https://adrian.work/post/openmediavault-5-letsencrypt-certbot-dns-cloudflare/).
 
 Requirements
 ------------
