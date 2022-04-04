@@ -13,7 +13,11 @@ None.
 Role Variables
 --------------
 
-None.
+- `le_certificate_cert_file`: path to the certificate (crt) file that should be imported
+- `le_certificate_key_file`: path to the certificate's private key file that should be imported
+
+Please note, those are not the locations where openmediavault is storing the key, i.e. do NOT use `/etc/ssl/certs/openmediavault-<uuid>.crt` or `/etc/ssl/private/openmediavault-<uuid>.key`!
+
 
 Dependencies
 ------------
@@ -26,6 +30,9 @@ Example Playbook
     - hosts: servers
       roles:
         - role: 'johanneskastl.openmediavault_lets_encrypt_certificate'
+          vars:
+            le_certificate_cert_file: '/etc/ssl/private/my-lets-encrypt/certificate.crt'
+            le_certificate_key_file: '/etc/ssl/private/my-lets-encrypt/certificate.key'
 
 License
 -------
