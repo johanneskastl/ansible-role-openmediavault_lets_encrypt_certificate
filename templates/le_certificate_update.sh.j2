@@ -1,0 +1,49 @@
+#!/bin/bash
+
+#
+# {{ ansible_managed }}
+#
+
+. /usr/share/openmediavault/scripts/helper-functions
+
+certificateFile="{{ le_certificate_cert_file }}"
+privateKeyFile="{{ le_certificate_key_file }}"
+certUuid=$(omv-confdbadm read "conf.system.certificate.ssl" | jq -r '.[] | "\(.uuid)"')
+comment=$(omv-confdbadm read "conf.system.certificate.ssl" | jq -r '.[] | "\(.comment)"')
+
+function json_escape()
+{
+  echo -n "$1" | {{ ansible_python_interpreter | default(discovered_interpreter_python) }} -c 'import json,sys; print(json.dumps(sys.stdin.read()))'
+}
+
+# read and format cert
+certkey=$(cat "${certificateFile}")
+certkey=$(json_escape "${certkey}")
+
+# read and format private key
+privkey=$(cat "${privateKeyFile}")
+privkey=$(json_escape "${privkey}")
+
+echo "#############"
+echo "Call omv-rcp"
+echo ""
+rpcparams={"\"uuid\":\"${certUuid}\", \"certificate\":${certkey}, \"privatekey\":${privkey}, \"comment\":\"${comment}\""}
+omv-rpc "CertificateMgmt" "set" "${rpcparams}" > /dev/null || {
+    echo "Error when calling omv-rpc"
+    exit 13
+}
+echo ""
+
+echo "#############"
+echo "apply configuration changes"
+echo ""
+omv_exec_rpc "Config" "applyChanges" "{\"modules\":[\"certificatemgmt\"],\"force\":false}" || {
+    echo "Error when applying the certificatemgmt changes, aborting"
+    exit 15
+}
+omv_exec_rpc "Config" "applyChanges" "{\"modules\":[],\"force\":false}" || {
+    echo "Error when applying all changes, aborting"
+    exit 17
+}
+
+exit 0
