@@ -1,5 +1,6 @@
 galaxy_info:
   role_name: 'openmediavault_lets_encrypt_certificate'
+  namespace: 'johanneskastl'
   author: 'Johannes Kastl'
   description: 'Hook script to import a Lets Encrypt certificate into Openmediavault'
   company: 'B1 Systems GmbH'
