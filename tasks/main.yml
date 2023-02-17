@@ -2,12 +2,12 @@
 # openmediavault_lets_encrypt_certificate/tasks/main.yml
 
 - name: 'install the jq utility'
-  package:
+  ansible.builtin.package:
     name: 'jq'
     state: 'present'
 
 - name: 'Create the hook script'
-  template:
+  ansible.builtin.template:
     src: 'le_certificate_update.sh.j2'
     dest: "{{ path_to_install_to }}/le_certificate_update.sh"
     owner: 'root'
