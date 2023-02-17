@@ -1,7 +1,7 @@
 ---
 # openmediavault_lets_encrypt_certificate/tasks/main.yml
 
-- name: 'install the jq utility'
+- name: 'Install the jq utility'
   ansible.builtin.package:
     name: 'jq'
     state: 'present'
