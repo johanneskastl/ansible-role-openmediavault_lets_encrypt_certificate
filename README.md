@@ -1,3 +1,5 @@
+![Ansible Lint](https://github.com/johanneskastl/ansible-role-openmediavault_lets_encrypt_certificate/workflows/Ansible%20Lint/badge.svg)
+
 openmediavault_lets_encrypt_certificate
 =========
 
